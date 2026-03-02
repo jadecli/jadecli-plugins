@@ -1,5 +1,9 @@
 {
   "name": "jadecli-plugins",
+  "metadata": {
+    "version": "1.0.0",
+    "description": "Claude Code plugin marketplace for jadecli team"
+  },
   "owner": {
     "name": "jadecli"
   },
