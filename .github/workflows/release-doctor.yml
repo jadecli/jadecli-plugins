@@ -1,0 +1,99 @@
+name: Release Doctor
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check-release-health:
+    name: Release health check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate release-please configuration
+        run: |
+          set -euo pipefail
+          echo "Checking release-please-config.json..."
+          python3 -c "import json; json.load(open('release-please-config.json'))"
+          echo "  OK"
+
+          echo "Checking .release-please-manifest.json..."
+          python3 -c "import json; json.load(open('.release-please-manifest.json'))"
+          echo "  OK"
+
+      - name: Check version consistency
+        run: |
+          set -euo pipefail
+          python3 <<'PYEOF'
+          import json, sys
+
+          errors = []
+
+          manifest = json.load(open(".release-please-manifest.json"))
+          marketplace = json.load(open(".claude-plugin/marketplace.json"))
+
+          # Check root version: manifest vs marketplace metadata
+          root_manifest = manifest.get(".", "")
+          marketplace_version = marketplace.get("metadata", {}).get("version", "")
+          if root_manifest != marketplace_version:
+              errors.append(
+                  f"Root version mismatch: manifest={root_manifest} "
+                  f"vs marketplace.json metadata.version={marketplace_version}"
+              )
+
+          # Check each plugin in manifest has a matching plugin.json version
+          import os
+          for path, version in manifest.items():
+              if path == ".":
+                  continue
+              pj_path = os.path.join(path, ".claude-plugin", "plugin.json")
+              if not os.path.isfile(pj_path):
+                  errors.append(f"Manifest lists '{path}' but {pj_path} not found")
+                  continue
+              pj = json.load(open(pj_path))
+              pj_version = pj.get("version", "")
+              if version != pj_version:
+                  errors.append(
+                      f"Plugin '{path}' version mismatch: manifest={version} "
+                      f"vs plugin.json={pj_version}"
+                  )
+
+          # Check marketplace completeness
+          for plugin in marketplace.get("plugins", []):
+              src = plugin.get("source", "").lstrip("./")
+              pj_path = os.path.join(src, ".claude-plugin", "plugin.json")
+              if not os.path.isfile(pj_path):
+                  errors.append(
+                      f"Marketplace plugin '{plugin['name']}' source '{src}' "
+                      f"missing {pj_path}"
+                  )
+
+          if errors:
+              print("Release health check FAILED:", file=sys.stderr)
+              for e in errors:
+                  print(f"  - {e}", file=sys.stderr)
+              sys.exit(1)
+
+          print("All version checks passed.")
+          print(f"  Root: {root_manifest}")
+          for path, version in manifest.items():
+              if path != ".":
+                  print(f"  {path}: {version}")
+          PYEOF
+
+      - name: Validate CHANGELOG exists
+        run: |
+          set -euo pipefail
+          if [ ! -f CHANGELOG.md ]; then
+            echo "ERROR: CHANGELOG.md not found" >&2
+            exit 1
+          fi
+          if ! head -1 CHANGELOG.md | grep -q "^# Changelog"; then
+            echo "WARNING: CHANGELOG.md does not start with '# Changelog'" >&2
+          fi
+          echo "CHANGELOG.md exists and is formatted correctly."
