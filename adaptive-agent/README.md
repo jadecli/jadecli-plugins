@@ -12,6 +12,7 @@ and end with integration verification. Built from Anthropic cookbook patterns.
 - `context-management` -- Session compaction, cross-session memory, caching-aware behavior
 - `compounding-review` -- 6-axis review ensuring new code integrates rather than orphans
 - `tool-orchestration` -- Parallel execution, evaluator-optimizer loops, structured extraction
+- `surface-awareness` -- Detects Claude Code surface (CLI, Desktop, VS Code, Web, GitHub Actions) and provides platform-specific best practices, permission modes, and remote control guidance
 
 **Commands** (explicit invocation):
 
@@ -19,6 +20,7 @@ and end with integration verification. Built from Anthropic cookbook patterns.
 - `/adaptive-agent:merge-prs` -- Discover PR process, validate, and merge following repo conventions
 - `/adaptive-agent:review` -- Run compounding review on recent changes or a specific PR
 - `/adaptive-agent:safe-branch` -- Create a working branch with full git safety
+- `/adaptive-agent:setup-environment` -- Detect surface, configure preview servers, verify tooling, output environment readiness report
 
 **Agents** (sub-agents for parallel work):
 
