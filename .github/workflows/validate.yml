@@ -82,6 +82,30 @@ jobs:
             --to ${{ github.event.pull_request.head.sha }} \
             --verbose
 
+  validate-release-config:
+    name: Validate release config
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check release-please files exist
+        run: |
+          set -euo pipefail
+          for f in release-please-config.json .release-please-manifest.json; do
+            if [ ! -f "$f" ]; then
+              echo "ERROR: $f not found" >&2
+              exit 1
+            fi
+          done
+          echo "Release config files present."
+
+      - name: Validate release-please JSON
+        run: |
+          set -euo pipefail
+          python3 -c "import json; json.load(open('release-please-config.json'))"
+          python3 -c "import json; json.load(open('.release-please-manifest.json'))"
+          echo "Release config JSON is valid."
+
   lint-markdown:
     name: Lint Markdown
     runs-on: ubuntu-latest
