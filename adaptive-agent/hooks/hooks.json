@@ -1,0 +1,14 @@
+{
+  "PreToolUse": [
+    {
+      "matcher": "Bash",
+      "hooks": [
+        {
+          "type": "command",
+          "command": "bash -c 'ARGS=\"$TOOL_INPUT\"; if echo \"$ARGS\" | grep -qE \"git (push|merge|rebase|reset --hard|branch -[dD]|checkout -f)\"; then echo \"⚠️  Git safety: This is a one-way door operation. Proceeding with caution.\"; fi'",
+          "timeout": 5
+        }
+      ]
+    }
+  ]
+}

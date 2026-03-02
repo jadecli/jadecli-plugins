@@ -1,0 +1,13 @@
+{
+  "name": "jadecli-plugins",
+  "owner": {
+    "name": "jadecli"
+  },
+  "plugins": [
+    {
+      "name": "adaptive-agent",
+      "source": "./adaptive-agent",
+      "description": "Self-adapting agent bootstrap for any codebase. Auto-discovers conventions, enforces git safety, manages context, and ensures every change compounds existing effort. Built from Anthropic cookbook patterns."
+    }
+  ]
+}
