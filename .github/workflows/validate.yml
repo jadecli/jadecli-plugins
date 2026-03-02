@@ -1,0 +1,93 @@
+name: Validate
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  validate-json:
+    name: Validate JSON
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate marketplace.json
+        run: python3 -c "import json; json.load(open('.claude-plugin/marketplace.json'))"
+
+      - name: Validate plugin.json files
+        run: |
+          set -euo pipefail
+          find . -path '*/.claude-plugin/plugin.json' | while read f; do
+            echo "Validating $f"
+            python3 -c "import json; json.load(open('$f'))"
+          done
+
+      - name: Validate hooks.json files
+        run: |
+          set -euo pipefail
+          find . -name 'hooks.json' -path '*/hooks/*' | while read f; do
+            echo "Validating $f"
+            python3 -c "import json; json.load(open('$f'))"
+          done
+
+  validate-structure:
+    name: Validate plugin structure
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check marketplace references
+        run: |
+          set -euo pipefail
+          python3 -c "
+          import json, os, sys
+          mp = json.load(open('.claude-plugin/marketplace.json'))
+          errors = []
+          for plugin in mp.get('plugins', []):
+              src = plugin.get('source', '')
+              src = src.lstrip('./')
+              pj = os.path.join(src, '.claude-plugin', 'plugin.json')
+              if not os.path.isfile(pj):
+                  errors.append(f'Plugin \"{plugin[\"name\"]}\" source \"{src}\" missing {pj}')
+          if errors:
+              for e in errors:
+                  print(f'ERROR: {e}', file=sys.stderr)
+              sys.exit(1)
+          print(f'All {len(mp.get(\"plugins\", []))} plugins validated.')
+          "
+
+  lint-commits:
+    name: Lint commit messages
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install commitlint
+        run: npm install -g @commitlint/cli @commitlint/config-conventional
+
+      - name: Lint PR commits
+        run: |
+          npx commitlint \
+            --from ${{ github.event.pull_request.base.sha }} \
+            --to ${{ github.event.pull_request.head.sha }} \
+            --verbose
+
+  lint-markdown:
+    name: Lint Markdown
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: DavidAnson/markdownlint-cli2-action@v19
+        with:
+          globs: '**/*.md'
