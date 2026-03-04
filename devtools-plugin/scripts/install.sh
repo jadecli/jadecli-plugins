@@ -4,13 +4,8 @@ set -euo pipefail
 # devtools installer -- installs and configures macOS dev tools for Claude Code workflows
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-MANIFESTS_DIR="$SCRIPT_DIR/../research/manifests"
-
-# Colors
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
-NC='\033[0m'
+# shellcheck source=lib.sh
+source "$SCRIPT_DIR/lib.sh"
 
 log_ok()   { printf "${GREEN}[OK]${NC} %s\n" "$1"; }
 log_warn() { printf "${YELLOW}[WARN]${NC} %s\n" "$1"; }
@@ -18,14 +13,6 @@ log_err()  { printf "${RED}[ERR]${NC} %s\n" "$1"; }
 log_info() { printf "[INFO] %s\n" "$1"; }
 
 # ── Dependency check ──────────────────────────────────────────────────────────
-
-ensure_mas() {
-  if ! command -v mas &>/dev/null; then
-    log_info "Installing mas (Mac App Store CLI)..."
-    brew install mas
-  fi
-  log_ok "mas available"
-}
 
 ensure_brew() {
   if ! command -v brew &>/dev/null; then
@@ -35,36 +22,33 @@ ensure_brew() {
   log_ok "Homebrew available"
 }
 
-# ── App Store installs ────────────────────────────────────────────────────────
+ensure_mas() {
+  if ! command -v mas &>/dev/null; then
+    log_info "Installing mas (Mac App Store CLI)..."
+    brew install mas
+  fi
+  log_ok "mas available"
+}
 
-declare -A MAS_APPS=(
-  [937984704]="Amphetamine"
-  [1527619437]="Maccy"
-  [1006087419]="SnippetsLab"
-  [584653203]="RapidAPI"
-  [1551292695]="Proxyman"
-  [1465448609]="TablePlus"
-  [1576121509]="OK JSON"
-  [1152747299]="Figma"
-  [1423210932]="Flow"
-  [1333542190]="1Password"
-)
+# ── App Store installs ────────────────────────────────────────────────────────
 
 install_mas_apps() {
   log_info "Installing App Store apps..."
-  local installed
-  installed=$(mas list 2>/dev/null | awk '{print $1}')
+  cache_mas_list
 
-  for app_id in "${!MAS_APPS[@]}"; do
-    local app_name="${MAS_APPS[$app_id]}"
-    if echo "$installed" | grep -q "^${app_id}$"; then
-      log_ok "$app_name already installed"
+  for entry in "${APPS[@]}"; do
+    local id name
+    id=$(app_id "$entry")
+    name=$(app_name "$entry")
+
+    if app_installed "$entry"; then
+      log_ok "$name already installed"
     else
-      log_info "Installing $app_name ($app_id)..."
-      if mas install "$app_id" 2>/dev/null; then
-        log_ok "$app_name installed"
+      log_info "Installing $name ($id)..."
+      if mas install "$id" 2>/dev/null; then
+        log_ok "$name installed"
       else
-        log_warn "Failed to install $app_name -- may need manual App Store sign-in"
+        log_warn "Failed to install $name -- may need manual App Store sign-in"
       fi
     fi
   done
@@ -75,7 +59,6 @@ install_mas_apps() {
 install_brew_tools() {
   log_info "Installing Homebrew tools..."
 
-  # Docker Desktop
   if [ -d "/Applications/Docker.app" ]; then
     log_ok "Docker Desktop already installed"
   else
@@ -84,7 +67,6 @@ install_brew_tools() {
     log_ok "Docker Desktop installed"
   fi
 
-  # 1Password CLI
   if command -v op &>/dev/null; then
     log_ok "1Password CLI already installed"
   else
@@ -130,11 +112,12 @@ configure_shell() {
 
   log_info "Configuring shell environment..."
 
+  # Ensure .zshrc exists
+  touch "$zshrc"
+
   # File descriptor limit
-  if ! grep -q "ulimit -n 65536" "$zshrc" 2>/dev/null; then
-    echo '' >> "$zshrc"
-    echo '# devtools: increased file descriptor limit' >> "$zshrc"
-    echo 'ulimit -n 65536' >> "$zshrc"
+  if ! grep -q "ulimit -n 65536" "$zshrc"; then
+    printf '\n# devtools: increased file descriptor limit\nulimit -n 65536\n' >> "$zshrc"
     log_ok "Added ulimit to ~/.zshrc"
   else
     log_ok "ulimit already configured"
@@ -142,10 +125,8 @@ configure_shell() {
 
   # 1Password SSH agent
   local op_sock="$HOME/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
-  if [ -S "$op_sock" ] && ! grep -q "SSH_AUTH_SOCK.*1password" "$zshrc" 2>/dev/null; then
-    echo '' >> "$zshrc"
-    echo '# devtools: 1Password SSH agent' >> "$zshrc"
-    echo "export SSH_AUTH_SOCK=\"$HOME/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock\"" >> "$zshrc"
+  if [ -S "$op_sock" ] && ! grep -q "SSH_AUTH_SOCK.*1password" "$zshrc"; then
+    printf '\n# devtools: 1Password SSH agent\nexport SSH_AUTH_SOCK="%s"\n' "$op_sock" >> "$zshrc"
     log_ok "Added 1Password SSH agent to ~/.zshrc"
   else
     log_ok "SSH agent already configured or 1Password not set up"
@@ -160,11 +141,10 @@ configure_ssh() {
 
   log_info "Configuring SSH persistence..."
 
-  mkdir -p "$ssh_sockets"
-  chmod 700 "$ssh_sockets"
+  mkdir -p "$HOME/.ssh" "$ssh_sockets"
+  chmod 700 "$HOME/.ssh" "$ssh_sockets"
 
   if ! grep -q "ControlMaster" "$ssh_config" 2>/dev/null; then
-    mkdir -p "$HOME/.ssh"
     cat >> "$ssh_config" <<'SSHEOF'
 
 # devtools: SSH connection persistence
@@ -175,6 +155,7 @@ Host *
   ControlPath ~/.ssh/sockets/%r@%h:%p
   ControlPersist 600
 SSHEOF
+    chmod 600 "$ssh_config"
     log_ok "SSH persistence configured"
   else
     log_ok "SSH persistence already configured"
@@ -188,8 +169,8 @@ configure_login_items() {
   local current_items
   current_items=$(osascript -e 'tell application "System Events" to get the name of every login item' 2>/dev/null || echo "")
 
-  local apps_to_add=("Amphetamine" "Maccy" "Docker" "1Password")
-  for app in "${apps_to_add[@]}"; do
+  local login_apps=("Amphetamine" "Maccy" "Docker" "1Password")
+  for app in "${login_apps[@]}"; do
     if echo "$current_items" | grep -qi "$app"; then
       log_ok "$app already in login items"
     else

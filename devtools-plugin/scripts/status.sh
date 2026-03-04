@@ -3,10 +3,9 @@ set -euo pipefail
 
 # devtools status checker -- reports on installed tools and system config
 
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
-NC='\033[0m'
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# shellcheck source=lib.sh
+source "$SCRIPT_DIR/lib.sh"
 
 ok()   { printf "${GREEN}[OK]${NC}   %s\n" "$1"; }
 warn() { printf "${YELLOW}[WARN]${NC} %s\n" "$1"; }
@@ -14,26 +13,14 @@ err()  { printf "${RED}[MISS]${NC} %s\n" "$1"; }
 
 echo "===== App Store Apps ====="
 
-declare -A MAS_APPS=(
-  [937984704]="Amphetamine"
-  [1527619437]="Maccy"
-  [1006087419]="SnippetsLab"
-  [584653203]="RapidAPI"
-  [1551292695]="Proxyman"
-  [1465448609]="TablePlus"
-  [1576121509]="OK JSON"
-  [1152747299]="Figma"
-  [1423210932]="Flow"
-  [1333542190]="1Password"
-)
-
-installed=$(mas list 2>/dev/null | awk '{print $1}')
-for app_id in "${!MAS_APPS[@]}"; do
-  app_name="${MAS_APPS[$app_id]}"
-  if echo "$installed" | grep -q "^${app_id}$"; then
-    ok "$app_name"
+cache_mas_list
+for entry in "${APPS[@]}"; do
+  name=$(app_name "$entry")
+  id=$(app_id "$entry")
+  if app_installed "$entry"; then
+    ok "$name"
   else
-    err "$app_name (mas install $app_id)"
+    err "$name (mas install $id)"
   fi
 done
 
@@ -48,7 +35,7 @@ else
 fi
 
 if command -v op &>/dev/null; then
-  ok "1Password CLI ($(op --version 2>/dev/null))"
+  ok "1Password CLI ($(op --version 2>/dev/null || echo "unknown"))"
 else
   err "1Password CLI (brew install --cask 1password-cli)"
 fi
@@ -82,36 +69,35 @@ fi
 echo ""
 echo "===== System Settings ====="
 
-# File descriptors
-fd_limit=$(ulimit -n 2>/dev/null)
-if [ "$fd_limit" -ge 65536 ] 2>/dev/null; then
+# File descriptors -- handle "unlimited" and non-numeric values
+fd_limit=$(ulimit -n 2>/dev/null || echo "unknown")
+if num_gte "$fd_limit" 65536; then
   ok "File descriptor limit: $fd_limit"
 else
   warn "File descriptor limit: $fd_limit (recommend 65536)"
 fi
 
 # Key repeat
-key_repeat=$(defaults read -g KeyRepeat 2>/dev/null || echo "unknown")
+key_repeat=$(read_default "-g" "KeyRepeat" "not set")
 if [ "$key_repeat" = "1" ]; then
   ok "Key repeat: fastest ($key_repeat)"
 else
   warn "Key repeat: $key_repeat (recommend 1)"
 fi
 
-# Dock
-dock_delay=$(defaults read com.apple.dock autohide-delay 2>/dev/null || echo "unknown")
-if [ "$dock_delay" = "0" ]; then
-  ok "Dock autohide delay: instant"
-else
-  warn "Dock autohide delay: $dock_delay (recommend 0)"
-fi
+# Dock autohide delay -- defaults read returns float, compare as string
+dock_delay=$(read_default "com.apple.dock" "autohide-delay" "not set")
+case "$dock_delay" in
+  0|0.0) ok "Dock autohide delay: instant" ;;
+  *)     warn "Dock autohide delay: $dock_delay (recommend 0)" ;;
+esac
 
-mru=$(defaults read com.apple.dock mru-spaces 2>/dev/null || echo "unknown")
-if [ "$mru" = "0" ]; then
-  ok "Spaces auto-rearrange: disabled"
-else
-  warn "Spaces auto-rearrange: enabled (recommend disabled)"
-fi
+# Spaces rearrange
+mru=$(read_default "com.apple.dock" "mru-spaces" "not set")
+case "$mru" in
+  0|false) ok "Spaces auto-rearrange: disabled" ;;
+  *)       warn "Spaces auto-rearrange: $mru (recommend disabled)" ;;
+esac
 
 # SSH
 if grep -q "ControlMaster" "$HOME/.ssh/config" 2>/dev/null; then
@@ -124,8 +110,12 @@ echo ""
 echo "===== Docker Resources ====="
 if docker info &>/dev/null; then
   mem=$(docker info --format '{{.MemTotal}}' 2>/dev/null || echo "0")
-  mem_gb=$(echo "scale=1; $mem / 1073741824" | bc 2>/dev/null || echo "unknown")
-  ok "Docker memory limit: ${mem_gb}GB"
+  if [ "$mem" != "0" ] && command -v bc &>/dev/null; then
+    mem_gb=$(echo "scale=1; $mem / 1073741824" | bc)
+    ok "Docker memory limit: ${mem_gb}GB"
+  else
+    ok "Docker running (memory info unavailable)"
+  fi
   cpus=$(docker info --format '{{.NCPU}}' 2>/dev/null || echo "unknown")
   ok "Docker CPUs: $cpus"
 else

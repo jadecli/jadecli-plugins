@@ -9,7 +9,7 @@ Run the devtools doctor to check for configuration problems and resource issues.
 
 1. Execute the doctor script:
 ```bash
-bash "$(dirname "$(find . -path '*/devtools-plugin/scripts/doctor.sh' -type f | head -1)")/doctor.sh"
+bash devtools-plugin/scripts/doctor.sh
 ```
 
 2. Present findings organized by severity (FAIL > WARN > PASS).

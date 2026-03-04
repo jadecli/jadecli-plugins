@@ -9,7 +9,7 @@ Run the devtools status checker to report on what is installed and configured.
 
 1. Execute the status script:
 ```bash
-bash "$(dirname "$(find . -path '*/devtools-plugin/scripts/status.sh' -type f | head -1)")/status.sh"
+bash devtools-plugin/scripts/status.sh
 ```
 
 2. Present the output to the user organized by category.
