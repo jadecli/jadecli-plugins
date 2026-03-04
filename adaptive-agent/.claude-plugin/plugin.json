@@ -1,6 +1,6 @@
 {
   "name": "adaptive-agent",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Self-adapting agent bootstrap. Discovers codebase conventions, enforces git safety, manages context lifecycle, and reviews code for compounding value.",
   "author": {
     "name": "jadecli"
