@@ -1,0 +1,14 @@
+{
+  "name": "OK JSON",
+  "app_store_id": 1576121509,
+  "bundle_id": "com.nickypatson.OK-JSON",
+  "category": "utility",
+  "surface": "app",
+  "price": "free",
+  "install_method": "mas",
+  "install_command": "mas install 1576121509",
+  "verify_command": "ls '/Applications/OK JSON.app'",
+  "login_item": false,
+  "claude_code_surfaces": ["cli"],
+  "description": "Native JSON tree viewer with JSONPath querying"
+}

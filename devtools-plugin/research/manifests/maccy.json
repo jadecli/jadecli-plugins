@@ -1,0 +1,18 @@
+{
+  "name": "Maccy",
+  "app_store_id": 1527619437,
+  "bundle_id": "org.p0deje.Maccy",
+  "category": "productivity",
+  "surface": "menubar",
+  "price": "9.99",
+  "install_method": "mas",
+  "install_command": "mas install 1527619437",
+  "verify_command": "pgrep -x Maccy",
+  "defaults_domain": "org.p0deje.Maccy",
+  "recommended_defaults": {
+    "pasteByDefault": true
+  },
+  "login_item": true,
+  "claude_code_surfaces": ["cli"],
+  "description": "Clipboard history with fuzzy search for constant copy-paste workflows"
+}

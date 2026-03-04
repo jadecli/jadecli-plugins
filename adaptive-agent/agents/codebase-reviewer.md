@@ -35,7 +35,8 @@ review axes.
 ## Your Output
 
 Return a structured assessment:
-```
+
+```text
 Scope: [directory reviewed]
 Files reviewed: [list]
 

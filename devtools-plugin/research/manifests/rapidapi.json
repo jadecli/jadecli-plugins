@@ -1,0 +1,14 @@
+{
+  "name": "RapidAPI",
+  "app_store_id": 584653203,
+  "bundle_id": "com.luckymarmot.Paw",
+  "category": "network",
+  "surface": "app",
+  "price": "free",
+  "install_method": "mas",
+  "install_command": "mas install 584653203",
+  "verify_command": "ls /Applications/RapidAPI.app || ls '/Applications/Paw.app'",
+  "login_item": false,
+  "claude_code_surfaces": ["cli"],
+  "description": "Native HTTP client with environment switching and code generation"
+}

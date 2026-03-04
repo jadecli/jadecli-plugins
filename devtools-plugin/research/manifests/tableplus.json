@@ -1,0 +1,14 @@
+{
+  "name": "TablePlus",
+  "app_store_id": 1465448609,
+  "bundle_id": "com.tinyapp.TablePlus",
+  "category": "database",
+  "surface": "app",
+  "price": "free-tier",
+  "install_method": "mas",
+  "install_command": "mas install 1465448609",
+  "verify_command": "ls /Applications/TablePlus.app",
+  "login_item": false,
+  "claude_code_surfaces": ["cli", "mcp"],
+  "description": "Native database GUI for PostgreSQL, MySQL, SQLite, Redis, MongoDB"
+}

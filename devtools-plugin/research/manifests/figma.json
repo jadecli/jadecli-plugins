@@ -1,0 +1,14 @@
+{
+  "name": "Figma",
+  "app_store_id": 1152747299,
+  "bundle_id": "com.figma.Desktop",
+  "category": "design",
+  "surface": "app",
+  "price": "free-tier",
+  "install_method": "mas",
+  "install_command": "mas install 1152747299",
+  "verify_command": "ls /Applications/Figma.app",
+  "login_item": false,
+  "claude_code_surfaces": ["mcp"],
+  "description": "UI design tool for SaaS app interfaces"
+}

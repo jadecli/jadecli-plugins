@@ -1,0 +1,14 @@
+{
+  "name": "SnippetsLab",
+  "app_store_id": 1006087419,
+  "bundle_id": "com.renfei.SnippetsLab",
+  "category": "productivity",
+  "surface": "menubar",
+  "price": "free",
+  "install_method": "mas",
+  "install_command": "mas install 1006087419",
+  "verify_command": "ls /Applications/SnippetsLab.app",
+  "login_item": false,
+  "claude_code_surfaces": ["cli"],
+  "description": "Code snippet manager with menubar quick-access for reusable patterns"
+}

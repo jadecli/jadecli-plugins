@@ -32,9 +32,9 @@ When a task spans multiple independent areas:
 3. Each sub-agent gets: the specific task + relevant file paths + conventions
 4. Collect and synthesize results
 
-```
+```text
 Agent("Review src/auth/ for security issues — check for hardcoded secrets, SQL injection, missing input validation")
-Agent("Review src/api/ for error handling — check for uncaught exceptions, missing error responses, inconsistent error formats")  
+Agent("Review src/api/ for error handling — check for uncaught exceptions, missing error responses, inconsistent error formats")
 Agent("Review src/db/ for query safety — check for raw queries, missing parameterization, N+1 patterns")
 ```
 
@@ -50,6 +50,7 @@ For tasks with clear quality criteria (writing specs, generating configs, drafti
 4. **Max 5 iterations** before accepting best attempt
 
 Use this for:
+
 - PR descriptions that must follow a template
 - Code that must pass specific lint rules
 - Documentation that must cover required sections
@@ -68,6 +69,7 @@ Use deeper reasoning for orchestration (deciding what to delegate, synthesizing 
 ## Structured Extraction via Tool Schemas
 
 When you need structured data from unstructured content, the pattern is:
+
 - Define the shape you need as a mental schema
 - Read the source material
 - Extract into the structured shape
@@ -87,6 +89,7 @@ Before creating new automation, discover what already exists:
 - GitHub Actions → `gh workflow run`
 
 When the agent needs a new tool:
+
 - Don't hardcode it inline
 - Create it as a script/command following the repo's task-runner pattern
 - If repo uses Makefile, add a make target

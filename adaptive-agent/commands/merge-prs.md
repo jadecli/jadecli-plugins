@@ -16,6 +16,7 @@ following the established workflow.
 ### 1. Ensure Clean Starting Point
 
 Before anything else, verify git safety:
+
 ```bash
 git status          # must be clean
 git branch          # note current branch
@@ -31,7 +32,8 @@ If main is behind origin, pull. If main has local-only commits, STOP and ask.
 
 Reference the bootstrap discovery. If not already bootstrapped, run it now.
 Key things needed:
-- Merge method (squash/merge/rebase) — check `git log --oneline --merges -10`
+
+- Merge method (squash/merge/rebase) -- check `git log --oneline --merges -10`
 - PR template location
 - Required CI checks
 - Branch protection rules
@@ -39,16 +41,19 @@ Key things needed:
 ### 3. Identify and Order Targets
 
 If specific PR numbers given, fetch their details:
+
 ```bash
 gh pr view NUMBER --json title,body,baseRefName,headRefName,mergeable,statusCheckRollup
 ```
 
 If 'all', list open PRs:
+
 ```bash
 gh pr list --state open --json number,title,headRefName,baseRefName
 ```
 
 Build dependency order:
+
 - Check if any PR branches off another PR's branch
 - Check PR descriptions for "depends on #N" references
 - PRs targeting `main` with no dependencies come first
@@ -59,12 +64,14 @@ Merges are one-way doors.
 ### 4. Validate Each PR
 
 For each PR in order:
+
 ```bash
 gh pr view NUMBER --json mergeable,mergeStateStatus,statusCheckRollup
 gh pr checks NUMBER
 ```
 
 Dry-run merge conflict check:
+
 ```bash
 git checkout main
 git merge --no-commit --no-ff origin/PR_BRANCH
@@ -77,16 +84,19 @@ If CI fails: report and STOP.
 ### 5. Execute Merge Chain
 
 For each validated PR:
+
 ```bash
 gh pr merge NUMBER --squash --delete-branch  # or --merge/--rebase per convention
 ```
 
 After each merge:
+
 ```bash
 git pull origin main
 ```
 
 If merging a chain, update next PR's base if needed:
+
 ```bash
 gh pr edit NEXT_NUMBER --base main
 ```

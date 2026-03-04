@@ -20,6 +20,7 @@ You receive a PR number. You validate it completely and return a structured repo
 ## Validation Steps
 
 1. **Fetch PR metadata**:
+
    ```bash
    gh pr view NUMBER --json title,body,baseRefName,headRefName,mergeable,mergeStateStatus,statusCheckRollup,files
    ```
@@ -29,6 +30,7 @@ You receive a PR number. You validate it completely and return a structured repo
 3. **Check mergeability**: The PR must not have conflicts.
 
 4. **Dry-run conflict check**:
+
    ```bash
    git merge --no-commit --no-ff origin/PR_BRANCH
    git merge --abort
@@ -42,7 +44,7 @@ You receive a PR number. You validate it completely and return a structured repo
 
 ## Your Output
 
-```
+```text
 PR #NUMBER: [title]
 Branch: [head] → [base]
 Files changed: [count]
@@ -59,7 +61,7 @@ Blockers: [list if BLOCKED]
 
 ## Constraints
 
-- Do not execute merges — only validate
+- Do not execute merges -- only validate
 - Always clean up dry-run merges with `git merge --abort`
 - Do not modify any files or branches
 - Report findings to the orchestrating command

@@ -1,0 +1,14 @@
+{
+  "name": "Proxyman",
+  "app_store_id": 1551292695,
+  "bundle_id": "com.proxyman.NSProxy",
+  "category": "network",
+  "surface": "app",
+  "price": "free-tier",
+  "install_method": "mas",
+  "install_command": "mas install 1551292695",
+  "verify_command": "ls /Applications/Proxyman.app",
+  "login_item": false,
+  "claude_code_surfaces": ["cli", "mcp"],
+  "description": "HTTPS debugger and MITM proxy for inspecting API traffic"
+}
