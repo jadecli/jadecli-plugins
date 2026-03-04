@@ -17,6 +17,7 @@ When a user needs to set up their macOS development environment for Claude Code 
 ## Post-Install Manual Steps
 
 These require user interaction and cannot be automated:
+
 - Log out/in for keyboard repeat rate changes
 - Open Docker Desktop to accept license and complete setup
 - Run `op signin` to authenticate 1Password CLI

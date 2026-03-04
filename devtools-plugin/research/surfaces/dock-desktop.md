@@ -24,8 +24,10 @@ killall Dock
 ```
 
 System Settings > Desktop & Dock > Mission Control:
+
 - Uncheck "Automatically rearrange Spaces based on most recent use"
 
 ## Rectangle (Already Installed)
+
 - Window snapping and tiling via keyboard shortcuts
 - Claude Code relevance: split terminal + browser + editor across screen halves/quarters

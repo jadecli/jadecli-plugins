@@ -47,6 +47,7 @@ op read "op://Vault/Item/field"
 
 Docker Desktop provides the `docker` and `docker compose` CLI tools.
 Claude Code uses these directly for:
+
 - Starting/stopping dev databases
 - Building and testing containerized services
 - Running one-off commands in containers

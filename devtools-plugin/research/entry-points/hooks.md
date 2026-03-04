@@ -41,6 +41,7 @@ After writing docker-compose files, validate with Docker Desktop:
 ### SessionStart
 
 Ensure dev environment is ready:
+
 - Amphetamine session active
 - Docker Desktop running
 - Required containers up

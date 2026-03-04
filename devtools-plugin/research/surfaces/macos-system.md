@@ -40,10 +40,12 @@ sudo launchctl load -w /Library/LaunchDaemons/limit.maxfiles.plist
 ## Reduce Visual Overhead
 
 System Settings > Accessibility > Display:
+
 - Enable Reduce Motion (cuts WindowServer CPU during workspace switching)
 - Enable Reduce Transparency (eliminates Vibrancy blur recalculation)
 
 System Settings > Desktop & Dock:
+
 - Minimize using Scale Effect (faster than Genie)
 - Disable Magnification
 

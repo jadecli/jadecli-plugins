@@ -12,6 +12,7 @@ macOS developer tooling installer and configurator optimized for Claude Code + m
 ## What It Manages
 
 ### App Store Apps (via mas)
+
 - Amphetamine -- prevent sleep during long sessions
 - Maccy -- clipboard history
 - SnippetsLab -- code snippet manager
@@ -23,10 +24,12 @@ macOS developer tooling installer and configurator optimized for Claude Code + m
 - Flow -- focus timer
 
 ### System Tools
+
 - 1Password + CLI -- secrets and SSH management
 - Docker Desktop -- container runtime
 
 ### macOS System Settings
+
 - File descriptor limits
 - Key repeat rate
 - Dock optimization
@@ -37,6 +40,7 @@ macOS developer tooling installer and configurator optimized for Claude Code + m
 ## Research
 
 See `research/` for detailed documentation organized by:
+
 - **Device surface** (system, menubar, dock, terminal, network, storage)
 - **Claude Code entry point** (CLI, MCP, hooks, skills)
 - **Service manifests** (per-tool JSON specs)
