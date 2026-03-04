@@ -1,0 +1,14 @@
+{
+  "name": "Flow",
+  "app_store_id": 1423210932,
+  "bundle_id": "design.yugen.Flow",
+  "category": "productivity",
+  "surface": "menubar",
+  "price": "free-tier",
+  "install_method": "mas",
+  "install_command": "mas install 1423210932",
+  "verify_command": "ls /Applications/Flow.app",
+  "login_item": true,
+  "claude_code_surfaces": [],
+  "description": "Pomodoro focus timer to time-box Claude Code sessions"
+}

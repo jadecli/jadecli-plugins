@@ -1,0 +1,22 @@
+{
+  "name": "Amphetamine",
+  "app_store_id": 937984704,
+  "bundle_id": "com.if.Amphetamine",
+  "category": "system",
+  "surface": "menubar",
+  "price": "free",
+  "install_method": "mas",
+  "install_command": "mas install 937984704",
+  "verify_command": "pgrep -x Amphetamine",
+  "defaults_domain": "com.if.Amphetamine",
+  "recommended_defaults": {
+    "Start Session At Launch": 1,
+    "Allow Closed-Display Sleep": 0,
+    "Default Duration": 0,
+    "Hide Dock Icon": 1,
+    "Allow Display Sleep": 0
+  },
+  "login_item": true,
+  "claude_code_surfaces": ["cli"],
+  "description": "Prevents system and display sleep during long Claude Code sessions"
+}
