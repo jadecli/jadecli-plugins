@@ -13,7 +13,7 @@
 
 If you discover a security vulnerability in jadecli-plugins (skills, commands, agents, hooks, or CI workflows), please report it responsibly:
 
-1. Email **security@jadecli.dev** with a description of the vulnerability
+1. Email **<security@jadecli.dev>** with a description of the vulnerability
 2. Include steps to reproduce the issue
 3. Allow reasonable time for a fix before public disclosure
 

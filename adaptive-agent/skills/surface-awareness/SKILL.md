@@ -16,7 +16,7 @@ version: 1.0.0
 Check these signals in order. First match wins.
 
 | Signal | Surface | Assumption |
-|--------|---------|------------|
+| -------- | --------- | ------------ |
 | `GITHUB_ACTIONS=true` | GitHub Actions CI/CD | Headless, PR-output oriented |
 | `GITLAB_CI=true` | GitLab CI/CD | Headless, MR-output oriented |
 | `CLAUDE_CODE_REMOTE=true` | Web / Remote session | Auto-accept, sandboxed VM |
@@ -47,7 +47,7 @@ claude -w feature-auth          # Isolated git worktree session
 ### Permission Modes
 
 | Mode | Flag | When to Use |
-|------|------|-------------|
+| ------ | ------ | ------------- |
 | Ask (default) | `--permission-mode default` | Unfamiliar codebases, security-sensitive |
 | Auto accept edits | `--permission-mode acceptEdits` | Trusted projects, faster iteration |
 | Plan | `--permission-mode plan` | Complex tasks — explore first, then execute |
@@ -104,7 +104,7 @@ Connect from another device by:
 **Remote Control vs Cloud sessions:**
 
 | | Remote Control | `--remote` / Web |
-|--|---------------|-----------------|
+| -- | --------------- | ----------------- |
 | Runs on | Your machine | Anthropic cloud |
 | Local tools | Available | Not available |
 | MCP servers | Available | Not available |
@@ -124,7 +124,7 @@ claude --teleport                      # Pull cloud session back to local
 ### Cross-Surface Handoffs
 
 | From | To | How |
-|------|-----|-----|
+| ------ | ----- | ----- |
 | CLI → Desktop | `/desktop` | Saves session, opens in Desktop app |
 | CLI → Web | `--remote` | Offloads to Anthropic cloud |
 | CLI → Phone/Browser | `/remote-control` or `/rc` | Remote Control (stays local) |
@@ -186,7 +186,7 @@ Code tab).
 ### Troubleshooting Quick Reference
 
 | Problem | Fix |
-|---------|-----|
+| --------- | ----- |
 | 403 / auth error | Sign out and back in |
 | Blank or stuck screen | Restart app, check for updates |
 | Tools not found (npm, node) | Verify shell PATH, restart app |
@@ -266,7 +266,7 @@ All surfaces read the same configuration:
 ### Handoff Matrix
 
 | From → To | Method |
-|-----------|--------|
+| ----------- | -------- |
 | CLI → Desktop | `/desktop` |
 | CLI → Phone/Browser | `/remote-control` (local stays running) |
 | CLI → Web (cloud) | `--remote` |

@@ -27,8 +27,8 @@ The script is idempotent and safe to re-run.
 
 The following secrets are needed for CI workflows:
 
-| Secret | Required for | How to get |
-|--------|-------------|------------|
+| Secret              | Required for                          | How to get                                          |
+| ------------------- | ------------------------------------- | --------------------------------------------------- |
 | `ANTHROPIC_API_KEY` | Claude Code review + @claude mentions | [Anthropic Console](https://console.anthropic.com/) |
 
 To add a secret:

@@ -71,13 +71,13 @@ and detect the framework (Next.js, Vite, Express, etc.).
 For monorepos with multiple `package.json` files, create multiple configurations
 with appropriate `cwd` paths.
 
-2. **Verify Git** — required for worktree-based session isolation:
+1. **Verify Git** — required for worktree-based session isolation:
 
 ```bash
 git --version
 ```
 
-3. **Verify `gh` CLI** — required for PR monitoring with auto-fix and auto-merge:
+1. **Verify `gh` CLI** — required for PR monitoring with auto-fix and auto-merge:
 
 ```bash
 gh --version
@@ -89,18 +89,18 @@ gh auth status
 1. **Check for SessionStart hook** in `.claude/settings.json` or project hooks.
    If missing, suggest creating one for automatic dependency installation:
 
-```
+```text
 No SessionStart hook found. For remote sessions, create a hook to install
 dependencies automatically. See: /adaptive-agent:bootstrap for project discovery.
 ```
 
-2. **Verify `.claude/launch.json`** exists — preview works in remote sessions too.
+1. **Verify `.claude/launch.json`** exists — preview works in remote sessions too.
 
 ### GitHub Actions / GitLab CI Surface
 
 1. **Check for Claude workflow** in `.github/workflows/` or `.gitlab-ci.yml`
-2. **Verify API key reference** — look for `ANTHROPIC_API_KEY` in workflow files
-3. **Check for cost controls** — `--max-turns` or `--max-budget-usd` flags
+1. **Verify API key reference** — look for `ANTHROPIC_API_KEY` in workflow files
+1. **Check for cost controls** — `--max-turns` or `--max-budget-usd` flags
 
 ## 4. Check Shared Configuration
 
@@ -124,7 +124,7 @@ These apply to all surfaces:
 
 Print a structured environment report:
 
-```
+```text
 ## Surface: [detected surface]
 
 ### Environment
