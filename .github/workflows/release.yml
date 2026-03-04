@@ -12,20 +12,24 @@ jobs:
   release-please:
     name: Release Please
     runs-on: ubuntu-latest
+    outputs:
+      releases_created: ${{ steps.release.outputs.releases_created }}
+      paths_released: ${{ steps.release.outputs.paths_released }}
     steps:
       - uses: googleapis/release-please-action@v4
         id: release
         with:
-          release-type: simple
-          package-name: jadecli-plugins
+          config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json
 
       - uses: actions/checkout@v4
-        if: ${{ steps.release.outputs.release_created }}
+        if: ${{ steps.release.outputs.releases_created == 'true' }}
 
-      - name: Tag release
-        if: ${{ steps.release.outputs.release_created }}
+      - name: Summary
+        if: ${{ steps.release.outputs.releases_created == 'true' }}
         run: |
-          gh release edit ${{ steps.release.outputs.tag_name }} \
-            --draft=false
+          echo "## Releases created" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "Paths released: ${{ steps.release.outputs.paths_released }}" >> "$GITHUB_STEP_SUMMARY"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,0 +1,70 @@
+# Claude Code AI Review for Pull Requests
+#
+# Automatically reviews PRs using Claude Code to check plugin structure,
+# version bumps, marketplace registration, and code quality.
+#
+# ACTIVATION: To enable this workflow:
+#   1. Add ANTHROPIC_API_KEY as a repository secret
+#      (Settings > Secrets and variables > Actions > New repository secret)
+#   2. Uncomment the "Run Claude Code review" step below
+#
+# NOTE: Claude Max Pro uses interactive OAuth and cannot be used in
+# headless CI environments. An API key is required.
+
+name: Claude Code Review
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+
+jobs:
+  review:
+    name: AI Code Review
+    runs-on: ubuntu-latest
+    if: >-
+      github.actor != 'github-actions[bot]' &&
+      github.actor != 'release-please[bot]'
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # ---------------------------------------------------------------
+      # Uncomment the step below after adding ANTHROPIC_API_KEY secret.
+      # ---------------------------------------------------------------
+      # - name: Run Claude Code review
+      #   uses: anthropics/claude-code-action@v1
+      #   with:
+      #     anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+      #     direct_prompt: |
+      #       Review this pull request for the jadecli-plugins marketplace.
+      #       Check the diff and evaluate:
+      #
+      #       1. **Plugin structure**: Every plugin must have .claude-plugin/plugin.json
+      #          with name, version, description fields
+      #       2. **Version bumps**: Any meaningful change to a plugin requires a
+      #          version bump in its plugin.json (patch for fixes, minor for new
+      #          skills/commands/agents, major for breaking changes)
+      #       3. **Marketplace registration**: New plugins must be registered in
+      #          .claude-plugin/marketplace.json with name, source, description
+      #       4. **Conventional commits**: All commits must use feat:/fix:/chore:/docs: prefix
+      #       5. **Hook safety**: hooks.json hooks must not execute destructive
+      #          operations without user confirmation
+      #       6. **Skill/command quality**: SKILL.md and command .md files should be
+      #          clear, well-structured, and follow existing patterns
+      #       7. **JSON validity**: All JSON files must be valid
+      #       8. **Documentation**: User-facing changes need README updates
+      #
+      #       Reference CLAUDE.md at the repo root for team conventions.
+      #       Be constructive and specific. Focus on correctness and safety.
+      #     allowed_tools: "Read,Grep,Glob"
+      #     timeout_minutes: 5
+
+      - name: Placeholder
+        run: echo "Claude Code review is not yet activated. See workflow comments for setup instructions."

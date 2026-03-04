@@ -21,3 +21,8 @@
 - [ ] Plugin JSON valid (`plugin.json`, `marketplace.json`)
 - [ ] README updated if user-facing change
 - [ ] CHANGELOG.md updated
+
+## Security
+
+- [ ] No secrets or credentials in committed files
+- [ ] Hooks do not execute destructive operations without user confirmation

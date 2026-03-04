@@ -1,0 +1,53 @@
+# Claude @mention Workflow
+#
+# Responds when @claude is mentioned in issue or PR comments.
+# Allows team members to ask Claude questions about the codebase,
+# get help with plugin development, or debug issues.
+#
+# ACTIVATION: To enable this workflow:
+#   1. Add ANTHROPIC_API_KEY as a repository secret
+#      (Settings > Secrets and variables > Actions > New repository secret)
+#   2. Uncomment the "Run Claude Code" step below
+#
+# NOTE: Claude Max Pro uses interactive OAuth and cannot be used in
+# headless CI environments. An API key is required.
+
+name: Claude Mention
+
+on:
+  issue_comment:
+    types: [created]
+  pull_request_review_comment:
+    types: [created]
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+  id-token: write
+
+jobs:
+  respond:
+    name: Claude Response
+    runs-on: ubuntu-latest
+    if: >-
+      contains(github.event.comment.body, '@claude')
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      # ---------------------------------------------------------------
+      # Uncomment the step below after adding ANTHROPIC_API_KEY secret.
+      # ---------------------------------------------------------------
+      # - name: Run Claude Code
+      #   uses: anthropics/claude-code-action@v1
+      #   with:
+      #     anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+      #     trigger_phrase: "@claude"
+      #     timeout_minutes: 10
+
+      - name: Placeholder
+        if: contains(github.event.comment.body, '@claude')
+        run: echo "Claude mention handler is not yet activated. See workflow comments for setup instructions."
