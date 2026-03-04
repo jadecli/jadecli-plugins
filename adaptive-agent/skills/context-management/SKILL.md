@@ -20,6 +20,7 @@ When the conversation is getting long (many tool calls, large file reads),
 proactively compress what you're holding in memory.
 
 Priority order for what to preserve:
+
 1. **User corrections** — anything the human told you to do differently
 2. **Error messages** — exact text, verbatim
 3. **Active work state** — current branch, files being edited, task in progress
@@ -28,6 +29,7 @@ Priority order for what to preserve:
 6. **Reference paths** — file paths, URLs, config values mentioned
 
 What to drop:
+
 - Full file contents already committed (you can re-read them)
 - Verbose tool output from successful operations
 - Exploratory reads that didn't yield useful information
@@ -36,6 +38,7 @@ What to drop:
 ## Cross-Session Memory
 
 If the repo has a `.claude/memories/` directory (or similar), use it:
+
 - Write debugging patterns you discovered: `patterns/debug-auth.md`
 - Write architectural decisions: `decisions/chose-drizzle-over-prisma.md`
 - Write runbooks for complex processes: `runbooks/deploy-staging.md`
@@ -47,12 +50,14 @@ should know, suggest creating one following the repo's doc conventions.
 
 Your CLAUDE.md and system context are cached across turns within a session.
 This means:
+
 - First turn is slower (cache miss) — be patient
 - Subsequent turns are faster (cache hit) — use multi-turn for complex tasks
 - Don't repeat stable context in prompts — it's already cached
 - Put architectural decisions in CLAUDE.md, not in conversation
 
 When spawning sub-agents, give them the minimum context they need:
+
 - The specific task
 - The relevant file paths
 - The conventions that apply to their scope
@@ -61,7 +66,8 @@ When spawning sub-agents, give them the minimum context they need:
 ## Parallel Agent Context Isolation
 
 When using the Agent tool for parallel work:
-- Each sub-agent gets its own context — don't assume shared state
+
+- Each sub-agent gets its own context -- don't assume shared state
 - Pass codebase conventions explicitly to each sub-agent
 - Scope each sub-agent to a module boundary from the bootstrap
 - Never let two sub-agents modify the same file
@@ -73,6 +79,7 @@ Flat structure: split by feature domain based on file naming.
 ## Extended Thinking Budget
 
 Use extended thinking proportionally to risk:
+
 - **High risk** (multi-module refactors, merge conflicts, architecture): think deeply
 - **Medium risk** (new feature in existing pattern): think briefly
 - **Low risk** (single-file edit following existing pattern): skip thinking

@@ -24,6 +24,7 @@ look like it belongs? Same patterns, same idioms, same abstraction level?
 compared to the surrounding code.
 
 **How to check**:
+
 - Compare import styles
 - Compare error handling patterns
 - Compare naming conventions
@@ -38,6 +39,7 @@ to what the new code introduces. Any overlaps?
 already does, maybe with slightly different argument names.
 
 **How to check**:
+
 - Grep for function names with similar semantic meaning
 - Check `utils/`, `helpers/`, `lib/`, `shared/` directories
 - Look for existing abstractions the new code could have used
@@ -51,6 +53,7 @@ reach the new code through the normal execution path?
 file sitting in a directory, disconnected.
 
 **How to check**:
+
 - For new exports: grep for imports of that export across the codebase
 - For new routes: check they're registered in the router
 - For new components: check they're exported from the module index
@@ -67,6 +70,7 @@ framework, style, and location pattern as existing tests?
 than the rest of the repo.
 
 **How to check**:
+
 - Look for test files matching the new source files
 - Compare test structure to existing tests (same describe/it patterns?)
 - Check test location matches convention (colocated? `__tests__/`? `test/`?)
@@ -80,6 +84,7 @@ and build on what was just added? Are the interfaces clear? Extension points obv
 on top of it without refactoring it first.
 
 **How to check**:
+
 - Are types/interfaces exported for others to use?
 - Are functions generic enough to be called from multiple places?
 - Does it extend existing abstractions rather than creating parallel ones?
@@ -93,6 +98,7 @@ Can you draw a line from this PR to a product outcome?
 code nobody asked for.
 
 **How to check**:
+
 - Read TODO.md, ROADMAP.md, CLAUDE.md for current priorities
 - Check `gh issue list` for related issues
 - Check PR description for issue references
@@ -110,7 +116,7 @@ code nobody asked for.
 
 Adapt the format to match the repo's documentation style. The content is:
 
-```
+```text
 Summary: [one sentence — what was reviewed and the verdict]
 
 1. Architecture Fit: [pass/soft-fail/hard-fail] — [evidence]

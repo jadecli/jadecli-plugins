@@ -14,13 +14,14 @@ Every git operation follows this safety sequence. No exceptions.
 
 ## Before Any Git Operation
 
-```
+```bash
 ORIGINAL_BRANCH=$(git branch --show-current)
 DIRTY=$(git status --porcelain)
 ```
 
 If dirty (uncommitted changes or untracked files exist):
-```
+
+```bash
 git stash push -u -m "pre-agent-$(date +%Y%m%d-%H%M%S)"
 ```
 
@@ -28,7 +29,8 @@ The `-u` flag is CRITICAL — it includes untracked files. Without it, new files
 the human created but hasn't committed will be lost.
 
 Then:
-```
+
+```bash
 git fetch origin
 ```
 
@@ -37,7 +39,7 @@ git fetch origin
 The agent MUST operate from a clean local main branch that is caught up to origin.
 Before creating any working branch:
 
-```
+```bash
 git checkout main
 git pull origin main
 git status  # must be clean
@@ -49,23 +51,27 @@ STOP and ask the human — this is a one-way door decision.
 ## Branch Creation
 
 Discover the repo's branch naming convention FIRST:
-```
+
+```bash
 git branch -a --sort=-committerdate | head -15
 ```
 
 Then follow it. Common patterns:
+
 - `feature/description` → create `feature/your-description`
-- `fix/description` → create `fix/your-description`  
+- `fix/description` → create `fix/your-description`
 - `user/feature` → create `jade/your-description`
 - Flat naming → use `agent/description`
 
 Always check the branch doesn't already exist:
-```
+
+```bash
 git show-ref --verify --quiet refs/heads/BRANCH_NAME
 ```
 
 For parallel work, prefer `--worktree` isolation:
-```
+
+```bash
 claude --worktree agent-task-name
 ```
 
@@ -89,6 +95,7 @@ Never abandon in-progress work to start something new. Finish, commit, then move
 Before creating a PR, find and read the template:
 
 Check these locations in order:
+
 1. `.github/PULL_REQUEST_TEMPLATE.md`
 2. `.github/pull_request_template.md`
 3. `PULL_REQUEST_TEMPLATE.md`
@@ -100,19 +107,22 @@ If a template exists, fill it out completely. If it has checkboxes, check
 the ones that apply. If it has sections, fill every section.
 
 Create PRs as drafts with the agent-generated label:
-```
+
+```bash
 gh pr create --draft --fill --label agent-generated
 ```
 
 Check for existing PRs on this branch first:
-```
+
+```bash
 gh pr list --head $BRANCH_NAME --state open
 ```
 
 ## Commit Attribution
 
 All agent commits include a co-author trailer:
-```
+
+```bash
 git commit -m "type(scope): description
 
 Co-authored-by: claude-code[bot] <noreply>"
@@ -123,12 +133,13 @@ Otherwise, match whatever format the repo's existing commits use.
 
 ## After Any Git Operation
 
-```
+```bash
 git checkout $ORIGINAL_BRANCH
 ```
 
 If work was stashed:
-```
+
+```bash
 git stash pop
 ```
 

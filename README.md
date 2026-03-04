@@ -32,7 +32,7 @@ Claude Code understands natively.
 
 ## Repo Structure
 
-```
+```text
 jadecli-plugins/
 ├── .claude-plugin/
 │   └── marketplace.json          # Marketplace manifest (lists all plugins)
