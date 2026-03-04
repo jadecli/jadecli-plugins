@@ -17,7 +17,7 @@ export EDITOR="cursor --wait"
 
 ## SSH Persistence (~/.ssh/config)
 
-```
+```text
 Host *
   ServerAliveInterval 60
   ServerAliveCountMax 10
