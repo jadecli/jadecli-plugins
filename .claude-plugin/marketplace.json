@@ -12,6 +12,11 @@
       "name": "adaptive-agent",
       "source": "./adaptive-agent",
       "description": "Self-adapting agent bootstrap for any codebase. Auto-discovers conventions, enforces git safety, manages context, and ensures every change compounds existing effort. Built from Anthropic cookbook patterns."
+    },
+    {
+      "name": "devtools",
+      "source": "./devtools-plugin",
+      "description": "macOS developer tooling installer and configurator for Claude Code workflows. Manages App Store apps, Homebrew tools, and system settings optimized for building monetizable web apps."
     }
   ]
 }
