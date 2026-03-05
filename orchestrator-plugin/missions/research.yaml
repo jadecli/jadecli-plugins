@@ -1,0 +1,42 @@
+name: research
+description: Decompose a question into parallel investigations, synthesize findings
+pattern: parallel
+
+scaling:
+  simple: { agents: 1, max_tool_calls: 10 }
+  moderate: { agents: 3, max_tool_calls: 15 }
+  complex: { agents: 8, max_tool_calls: 25 }
+
+lead:
+  model: opus
+  strategy: |
+    1. Assess complexity (simple/moderate/complex) based on the objective
+    2. Decompose objective into independent sub-questions
+    3. Assign each sub-question to a worker with clear boundaries
+    4. Synthesize worker artifacts into SUMMARY.md
+  tools: [WebSearch, WebFetch, Read, Glob, Grep]
+
+workers:
+  investigator:
+    model: sonnet
+    count: dynamic
+    tools: [WebSearch, WebFetch, Read, Glob, Grep]
+    artifact_schema:
+      format: markdown
+      required_sections: [findings, sources, confidence]
+    constraints:
+      - "Write findings to artifact file, return only the file path"
+      - "Stay within assigned sub-question boundaries"
+      - "Rate confidence as high/medium/low with justification"
+
+artifacts:
+  directory: artifacts/{mission_name}/{timestamp}
+  index: SUMMARY.md
+  worker_prefix: "{role}-{n}"
+
+evaluation:
+  method: lead_synthesis
+  criteria:
+    - factual_accuracy
+    - source_quality
+    - completeness

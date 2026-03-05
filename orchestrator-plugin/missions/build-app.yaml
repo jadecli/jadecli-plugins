@@ -1,0 +1,73 @@
+name: build-app
+description: Sequential pipeline to scaffold, implement, and test an application
+pattern: sequential
+
+scaling:
+  simple: { agents: 2, max_tool_calls: 20 }
+  moderate: { agents: 3, max_tool_calls: 30 }
+  complex: { agents: 5, max_tool_calls: 50 }
+
+lead:
+  model: opus
+  strategy: |
+    1. Analyze the build objective to determine scope and technology
+    2. Select scaling tier
+    3. Run workers SEQUENTIALLY (each sees prior worker output):
+       a. architect: design the project structure and API
+       b. builder: implement the code based on architect output
+       c. tester: write and run tests based on builder output
+    4. After all workers complete, synthesize into BUILD-REPORT.md
+    5. Verify the build produces a working artifact
+  tools: [Read, Write, Glob, Grep, Bash]
+
+workers:
+  architect:
+    model: sonnet
+    count: 1
+    tools: [Read, Glob, Grep, Write]
+    artifact_schema:
+      format: markdown
+      required_sections: [structure, api, dependencies, implementation_notes]
+    constraints:
+      - "Design the project structure and key interfaces"
+      - "Specify exact file paths and their purposes"
+      - "List all dependencies with versions"
+      - "Write design doc to artifact file, return only the file path"
+
+  builder:
+    model: sonnet
+    count: 1
+    tools: [Read, Write, Edit, Glob, Grep, Bash]
+    artifact_schema:
+      format: markdown
+      required_sections: [files_created, implementation_decisions, known_limitations]
+    constraints:
+      - "Read the architect's design doc before starting"
+      - "Implement all files specified in the design"
+      - "Install dependencies and verify the build compiles"
+      - "Write implementation report to artifact file, return only the file path"
+
+  tester:
+    model: sonnet
+    count: 1
+    tools: [Read, Write, Edit, Glob, Grep, Bash]
+    artifact_schema:
+      format: markdown
+      required_sections: [test_results, coverage, issues_found]
+    constraints:
+      - "Read architect design and builder report before starting"
+      - "Write tests for all key functionality"
+      - "Run tests and capture results"
+      - "Write test report to artifact file, return only the file path"
+
+artifacts:
+  directory: artifacts/{mission_name}/{timestamp}
+  index: BUILD-REPORT.md
+  worker_prefix: "{role}"
+
+evaluation:
+  method: lead_synthesis
+  criteria:
+    - build_success
+    - test_coverage
+    - code_quality

@@ -1,4 +1,5 @@
 {
   ".": "1.1.0",
-  "adaptive-agent": "1.2.0"
+  "adaptive-agent": "1.2.0",
+  "orchestrator-plugin": "0.1.0"
 }

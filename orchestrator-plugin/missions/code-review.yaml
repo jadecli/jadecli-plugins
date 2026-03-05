@@ -1,0 +1,48 @@
+name: code-review
+description: Parallel scoped code review across multiple dimensions
+pattern: parallel
+
+scaling:
+  simple: { agents: 2, max_tool_calls: 15 }
+  moderate: { agents: 4, max_tool_calls: 20 }
+  complex: { agents: 6, max_tool_calls: 30 }
+
+lead:
+  model: opus
+  strategy: |
+    1. Assess the scope of the review target (single file, module, full codebase)
+    2. Select scaling tier based on scope
+    3. Assign each reviewer a specific dimension:
+       - security: vulnerabilities, injection, auth issues
+       - performance: bottlenecks, complexity, resource usage
+       - quality: readability, maintainability, patterns
+       - correctness: logic errors, edge cases, type safety
+    4. Spawn reviewers in parallel
+    5. Synthesize findings into VERDICT.md with severity ratings
+  tools: [Read, Glob, Grep]
+
+workers:
+  reviewer:
+    model: sonnet
+    count: dynamic
+    tools: [Read, Glob, Grep]
+    artifact_schema:
+      format: markdown
+      required_sections: [findings, severity, recommendations]
+    constraints:
+      - "Focus exclusively on your assigned review dimension"
+      - "Rate each finding as critical/high/medium/low severity"
+      - "Include file paths and line numbers for every finding"
+      - "Write findings to artifact file, return only the file path"
+
+artifacts:
+  directory: artifacts/{mission_name}/{timestamp}
+  index: VERDICT.md
+  worker_prefix: "{role}-{n}"
+
+evaluation:
+  method: lead_synthesis
+  criteria:
+    - finding_accuracy
+    - severity_calibration
+    - actionability

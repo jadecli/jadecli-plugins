@@ -17,6 +17,11 @@
       "name": "devtools",
       "source": "./devtools-plugin",
       "description": "macOS developer tooling installer and configurator for Claude Code workflows. Manages App Store apps, Homebrew tools, and system settings optimized for building monetizable web apps."
+    },
+    {
+      "name": "orchestrator",
+      "source": "./orchestrator-plugin",
+      "description": "Composable multi-agent orchestrator using declarative YAML mission files. Spawns lead + worker agents via Claude Agent SDK for research, code review, and full-stack builds."
     }
   ]
 }
