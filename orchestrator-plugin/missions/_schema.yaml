@@ -1,0 +1,76 @@
+# Mission File Schema Reference
+# This is an annotated reference, not a runnable mission.
+# Copy and modify to create new missions.
+
+# REQUIRED: unique mission identifier
+name: my-mission
+
+# REQUIRED: human-readable description
+description: What this mission does
+
+# Pattern determines how workers execute:
+#   parallel   - all workers run concurrently (default)
+#   sequential - workers run one after another, each seeing prior outputs
+#   pipeline   - chain of transformations, output of one feeds next
+pattern: parallel
+
+# OPTIONAL: scaling tiers the lead selects from
+# The lead reads these and self-selects based on objective complexity
+scaling:
+  simple: { agents: 1, max_tool_calls: 10 }
+  moderate: { agents: 3, max_tool_calls: 15 }
+  complex: { agents: 8, max_tool_calls: 25 }
+
+# REQUIRED: lead agent configuration
+lead:
+  # Model tier: opus (best reasoning), sonnet (balanced), haiku (fast/cheap)
+  model: opus
+
+  # Strategy prompt: instructs the lead how to decompose and orchestrate
+  strategy: |
+    1. Assess complexity
+    2. Decompose into sub-tasks
+    3. Spawn workers
+    4. Synthesize results
+
+  # Tools available to the lead agent
+  # Agent tool is always added automatically
+  tools: [WebSearch, WebFetch, Read, Glob, Grep]
+
+# REQUIRED: worker role definitions
+# Each key is a role name the lead can spawn
+workers:
+  researcher:
+    # Model tier for this worker role
+    model: sonnet
+
+    # Number of workers: integer or "dynamic" (lead decides)
+    count: dynamic
+
+    # Tools available to workers of this role
+    tools: [WebSearch, WebFetch, Read, Glob, Grep]
+
+    # OPTIONAL: structured output requirements
+    artifact_schema:
+      format: markdown  # markdown | json | yaml | text
+      required_sections: [findings, sources, confidence]
+
+    # OPTIONAL: behavioral constraints injected into worker prompt
+    constraints:
+      - "Write findings to artifact file, return only the file path"
+      - "Stay within assigned boundaries"
+
+# OPTIONAL: artifact storage configuration
+# Template variables: {mission_name}, {timestamp}
+artifacts:
+  directory: artifacts/{mission_name}/{timestamp}
+  index: SUMMARY.md
+  worker_prefix: "{role}-{n}"
+
+# OPTIONAL: post-run evaluation
+evaluation:
+  method: lead_synthesis  # lead_synthesis | checklist | none
+  criteria:
+    - factual_accuracy
+    - source_quality
+    - completeness

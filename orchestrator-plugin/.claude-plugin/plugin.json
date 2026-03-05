@@ -1,0 +1,19 @@
+{
+  "name": "orchestrator",
+  "version": "0.1.0",
+  "description": "Composable multi-agent orchestrator using declarative YAML mission files. Spawns lead + worker agents via Claude Agent SDK for research, code review, and full-stack builds.",
+  "author": {
+    "name": "jadecli"
+  },
+  "repository": "https://github.com/jadecli/jadecli-plugins",
+  "license": "MIT",
+  "keywords": [
+    "orchestrator",
+    "multi-agent",
+    "missions",
+    "agent-sdk",
+    "research",
+    "code-review",
+    "build"
+  ]
+}

@@ -9,3 +9,7 @@ Thumbs.db
 *.tar.gz
 *.zip
 .worktrees/
+node_modules/
+dist/
+orchestrator-plugin/artifacts/*
+!orchestrator-plugin/artifacts/.gitkeep
