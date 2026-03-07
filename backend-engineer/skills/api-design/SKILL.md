@@ -13,7 +13,7 @@ version: 1.0.0
 
 RESTful routes live in `app/api/v1/`:
 
-```
+```text
 app/api/v1/feed/route.ts        GET    /api/v1/feed
 app/api/v1/vendors/route.ts     GET    /api/v1/vendors
 app/api/v1/vendors/[id]/route.ts GET   /api/v1/vendors/:id
@@ -64,7 +64,7 @@ On error:
 
 Cursor-based pagination. Never use offset-based.
 
-```
+```text
 GET /api/v1/vendors?cursor=<uuid>&limit=50
 ```
 

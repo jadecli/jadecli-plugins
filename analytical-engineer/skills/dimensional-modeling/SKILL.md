@@ -13,7 +13,7 @@ version: 1.0.0
 Facts reference dimensions via foreign keys. Dimensions are denormalized for
 query performance. No snowflaking.
 
-```
+```text
 dim_vendor ──┐
              ├── fact_changes
 dim_time   ──┘

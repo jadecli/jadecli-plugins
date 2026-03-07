@@ -27,4 +27,4 @@ ORDER BY table_schema, table_name;
 
 Use Neon MCP `run_sql` for the verification query.
 
-2. Report the results: tables created/modified, any errors encountered.
+1. Report the results: tables created/modified, any errors encountered.

@@ -49,6 +49,7 @@ Check that the response matches the expected shape:
 ### 3. Report
 
 Output:
+
 - HTTP status code
 - Response time
 - Response body (truncated if large)

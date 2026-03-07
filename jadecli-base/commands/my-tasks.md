@@ -33,4 +33,4 @@ LIMIT 20;
 | 1 | create | Built new plugin ... | PR #42    | 2026-03-04 10:30 UTC|
 ```
 
-2. If no tasks found, report that no tasks are logged for this worker yet.
+1. If no tasks found, report that no tasks are logged for this worker yet.

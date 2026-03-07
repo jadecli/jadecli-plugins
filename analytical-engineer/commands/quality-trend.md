@@ -56,6 +56,7 @@ Display the trend as a table:
 |---|---|---|---|
 
 Highlight:
+
 - Positive deltas (improvement)
 - Negative deltas (regression)
 - Vendors with no score changes in the period (stale)

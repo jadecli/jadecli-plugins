@@ -15,7 +15,7 @@ version: 1.0.0
 
 API keys are passed in the `Authorization` header:
 
-```
+```text
 Authorization: Bearer ltf_abc123...
 ```
 
