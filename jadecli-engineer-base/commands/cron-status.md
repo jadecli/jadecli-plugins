@@ -35,6 +35,6 @@ LIMIT 25;
 | 1 | 2026-03-04 06:00 UTC| 2026-03-04 06:01 UTC| completed | Processed 12... |       |
 ```
 
-3. Highlight any `failed` runs with the error message.
+1. Highlight any `failed` runs with the error message.
 
-4. If no cron_runs exist, report that no cron executions have been logged.
+2. If no cron_runs exist, report that no cron executions have been logged.
