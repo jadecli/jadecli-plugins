@@ -30,7 +30,7 @@ CREATE TABLE cron_runs (
 
 Jobs execute in sequence via separate cron triggers:
 
-```
+```text
 cron/fetch     (every 6h)  -> Fetch all vendor files
 cron/analyze   (every 6h, offset 30m) -> Analyze fetched changes
 cron/reporting (daily)     -> Aggregate into reporting tables
@@ -76,7 +76,7 @@ This enables monitoring and alerting on job outcomes without parsing logs.
 
 ## Status Transitions
 
-```
+```text
 (start) -> running
 running -> completed  (success path)
 running -> failed     (error path)

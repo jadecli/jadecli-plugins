@@ -55,7 +55,7 @@ Uses `release-please` for automated semver and CHANGELOG:
 
 Enforces conventional commit format:
 
-```
+```text
 type(scope): description
 
 Types: feat, fix, chore, docs, test, refactor, perf, ci

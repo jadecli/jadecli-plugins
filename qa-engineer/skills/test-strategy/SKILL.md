@@ -50,6 +50,7 @@ describe('<module>', () => {
 ```
 
 Examples:
+
 - `describe('authenticate')` -> `it('should return free tier when no auth header')`
 - `describe('GET /api/v1/feed')` -> `it('should return 429 when rate limited')`
 

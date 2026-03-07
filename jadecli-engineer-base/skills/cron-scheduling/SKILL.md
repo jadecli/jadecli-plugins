@@ -12,7 +12,7 @@ version: 1.0.0
 
 Cron routes live at:
 
-```
+```text
 app/api/cron/<job-name>/route.ts
 ```
 

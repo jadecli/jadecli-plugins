@@ -40,11 +40,11 @@ Each person in the org has assigned **workers** (roles). Workers are the unit of
 
 | Person | Email | Worker Roles |
 |--------|-------|-------------|
-| Alex | alex@jadecli.com | data, analytical-engineer |
-| Bijan | bijan@jadecli.com | sales |
-| Dima | dima@jadecli.com | design, frontend-engineer |
-| Sebastian | sebastian@jadecli.com | data, marketing, analytical-engineer |
-| Nami (service) | nami@jadecli.com | all unassigned workers |
+| Alex | <alex@jadecli.com> | data, analytical-engineer |
+| Bijan | <bijan@jadecli.com> | sales |
+| Dima | <dima@jadecli.com> | design, frontend-engineer |
+| Sebastian | <sebastian@jadecli.com> | data, marketing, analytical-engineer |
+| Nami (service) | <nami@jadecli.com> | all unassigned workers |
 
 ## General Rules
 

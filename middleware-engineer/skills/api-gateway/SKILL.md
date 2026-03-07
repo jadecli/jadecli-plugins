@@ -60,6 +60,7 @@ return 429 with `Retry-After` header.
 ## Request/Response Logging
 
 Every API request is logged with:
+
 - Request ID (UUID, also returned in `X-Request-ID` header)
 - API key ID (null for unauthenticated)
 - Endpoint path

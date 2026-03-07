@@ -42,7 +42,7 @@ Event-driven outbound notifications:
 
 Scheduled work via Vercel cron:
 
-```
+```text
 cron/fetch    -> Fetch vendor llms.txt files
 cron/analyze  -> Run intelligence analysis
 cron/reporting -> Generate reporting aggregations

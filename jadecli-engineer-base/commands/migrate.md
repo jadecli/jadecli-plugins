@@ -16,7 +16,7 @@ Run or generate a schema migration for the Neon database.
 npm run migrate
 ```
 
-3. Verify the migration succeeded by querying the new or modified tables:
+1. Verify the migration succeeded by querying the new or modified tables:
 
 ```sql
 SELECT table_schema, table_name
@@ -27,4 +27,4 @@ ORDER BY table_schema, table_name;
 
 Use Neon MCP `run_sql` for the verification query.
 
-4. Report the results: tables created/modified, any errors encountered.
+2. Report the results: tables created/modified, any errors encountered.

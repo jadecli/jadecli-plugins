@@ -45,6 +45,7 @@ Extract and display Core Web Vitals:
 | CLS | x.xx | < 0.1 | PASS/FAIL |
 
 Also report:
+
 - Performance score (0-100)
 - Accessibility score (0-100)
 - Best Practices score (0-100)

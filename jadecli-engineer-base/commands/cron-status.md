@@ -23,9 +23,9 @@ ORDER BY started_at DESC
 LIMIT 25;
 ```
 
-2. Group results by job_name, showing the last 5 runs per job.
+1. Group results by job_name, showing the last 5 runs per job.
 
-3. Format as a table per job:
+2. Format as a table per job:
 
 ```text
 ### Job: <job_name>
@@ -35,6 +35,6 @@ LIMIT 25;
 | 1 | 2026-03-04 06:00 UTC| 2026-03-04 06:01 UTC| completed | Processed 12... |       |
 ```
 
-4. Highlight any `failed` runs with the error message.
+3. Highlight any `failed` runs with the error message.
 
-5. If no cron_runs exist, report that no cron executions have been logged.
+4. If no cron_runs exist, report that no cron executions have been logged.

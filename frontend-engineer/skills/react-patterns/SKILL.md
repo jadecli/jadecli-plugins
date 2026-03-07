@@ -86,7 +86,7 @@ use React error boundaries.
 
 ## Component Organization
 
-```
+```text
 components/
   ui/           # shadcn/ui primitives (Button, Card, etc.)
   layout/       # Header, Footer, Sidebar

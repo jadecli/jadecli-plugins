@@ -57,7 +57,7 @@ LIMIT 10;
 
 Display the request lifecycle:
 
-```
+```text
 Request -> Auth -> Rate Check -> Handler -> Response -> Log
                                     |
                                     +-> Cron Job (if triggered)

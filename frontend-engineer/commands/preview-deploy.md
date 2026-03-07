@@ -30,6 +30,7 @@ This creates a preview deployment (not production).
 ### 3. Output
 
 Report:
+
 - Preview URL (from Vercel CLI output)
 - Deployment status
 - Any build warnings or errors

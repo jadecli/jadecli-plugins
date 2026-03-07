@@ -13,13 +13,14 @@ version: 1.0.0
 Config file: `vitest.config.ts`
 
 Key settings:
+
 - Test environment: `node` (not jsdom -- API tests don't need a DOM)
 - Timeout: 30s for integration tests
 - Globals: enabled (no need to import `describe`, `it`, `expect`)
 
 ## Test File Location
 
-```
+```text
 tests/
   auth.test.ts
   feed.test.ts

@@ -29,6 +29,7 @@ This project uses the App Router exclusively. Never use the Pages Router.
 All components are Server Components unless explicitly marked with `'use client'`.
 
 Use `'use client'` only when the component needs:
+
 - Event handlers (onClick, onChange, etc.)
 - useState, useEffect, useRef
 - Browser-only APIs (window, document)
@@ -37,7 +38,7 @@ Use `'use client'` only when the component needs:
 
 API routes live in `app/api/`. Convention:
 
-```
+```text
 app/api/v1/feed/route.ts      -> GET /api/v1/feed
 app/api/v1/vendors/route.ts   -> GET /api/v1/vendors
 app/api/v1/stats/route.ts     -> GET /api/v1/stats
@@ -60,6 +61,7 @@ export const metadata: Metadata = {
 ## Image Optimization
 
 Always use `next/image` for images. Provides automatic:
+
 - Format conversion (WebP/AVIF)
 - Responsive sizing
 - Lazy loading

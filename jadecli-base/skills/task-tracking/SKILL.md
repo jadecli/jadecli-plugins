@@ -17,7 +17,7 @@ Log a task when you have completed a discrete unit of work: a PR merged, a query
 
 ## Required Fields
 
-- **worker_email**: The current user's email from session context (e.g., alex@jadecli.com)
+- **worker_email**: The current user's email from session context (e.g., <alex@jadecli.com>)
 - **worker_role**: The role from the plugin stack (e.g., data, analytical-engineer, frontend-engineer, sales, design, marketing)
 - **task_summary**: Concise description of what was done (1-2 sentences max)
 - **task_type**: One of: `query`, `report`, `deploy`, `review`, `fix`, `create`

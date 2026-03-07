@@ -25,7 +25,7 @@ ORDER BY completed_at DESC
 LIMIT 20;
 ```
 
-3. Format the results as a table:
+1. Format the results as a table:
 
 ```text
 | # | Type   | Summary              | Artifacts | Completed           |
@@ -33,4 +33,4 @@ LIMIT 20;
 | 1 | create | Built new plugin ... | PR #42    | 2026-03-04 10:30 UTC|
 ```
 
-4. If no tasks found, report that no tasks are logged for this worker yet.
+2. If no tasks found, report that no tasks are logged for this worker yet.

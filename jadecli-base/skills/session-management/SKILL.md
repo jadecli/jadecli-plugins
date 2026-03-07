@@ -23,7 +23,7 @@ ORDER BY completed_at DESC
 LIMIT 1;
 ```
 
-3. **Resume or start fresh**: If a handoff note exists, acknowledge pending items and continue from where the last session left off. If none exists, proceed normally.
+1. **Resume or start fresh**: If a handoff note exists, acknowledge pending items and continue from where the last session left off. If none exists, proceed normally.
 
 ## On Session End
 

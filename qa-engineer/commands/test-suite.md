@@ -18,6 +18,7 @@ npm test 2>&1
 ### 2. Parse Results
 
 Extract from Vitest output:
+
 - Total test count
 - Passed count
 - Failed count
@@ -27,6 +28,7 @@ Extract from Vitest output:
 ### 3. Report Failures
 
 For each failed test, report:
+
 - Test file path
 - Test name (describe + it)
 - Error message
@@ -34,7 +36,7 @@ For each failed test, report:
 
 ### 4. Output
 
-```
+```text
 Test Suite Results
 ==================
 Total:   299

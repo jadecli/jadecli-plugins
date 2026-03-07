@@ -29,7 +29,7 @@ Omitting `--project` can link to the wrong project and deploy to the wrong URL.
 
 ## Post-Squash-Merge Author Fix
 
-After squash-merging a PR, the HEAD commit author is set to the GitHub merge actor (jade@jadecli.com). Vercel may reject deploys from unrecognized authors.
+After squash-merging a PR, the HEAD commit author is set to the GitHub merge actor (<jade@jadecli.com>). Vercel may reject deploys from unrecognized authors.
 
 Fix: push a lightweight commit to set the correct author before deploying.
 

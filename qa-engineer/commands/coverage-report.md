@@ -22,6 +22,7 @@ npx vitest run --coverage 2>&1
 ### 2. Parse Coverage Output
 
 Extract per-file coverage percentages:
+
 - Statements
 - Branches
 - Functions
@@ -31,7 +32,7 @@ Extract per-file coverage percentages:
 
 Any file below the threshold (default 80%) is flagged:
 
-```
+```text
 Coverage Report
 ===============
 Threshold: 80%
