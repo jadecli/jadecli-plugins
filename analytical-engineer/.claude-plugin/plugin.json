@@ -1,0 +1,17 @@
+{
+  "name": "analytical-engineer",
+  "version": "0.1.0",
+  "description": "Analytical engineering plugin. Reporting queries, dimensional modeling, and SCD patterns for llms-txt-feed data warehouse.",
+  "author": {
+    "name": "jadecli"
+  },
+  "repository": "https://github.com/jadecli/jadecli-plugins",
+  "license": "MIT",
+  "keywords": [
+    "analytics",
+    "dimensional-modeling",
+    "scd",
+    "reporting",
+    "data-warehouse"
+  ]
+}

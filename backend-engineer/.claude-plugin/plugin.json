@@ -1,0 +1,17 @@
+{
+  "name": "backend-engineer",
+  "version": "0.1.0",
+  "description": "Backend engineering plugin. API design, auth patterns, and middleware conventions for Next.js API routes.",
+  "author": {
+    "name": "jadecli"
+  },
+  "repository": "https://github.com/jadecli/jadecli-plugins",
+  "license": "MIT",
+  "keywords": [
+    "api-design",
+    "auth",
+    "middleware",
+    "backend",
+    "nextjs"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "name": "qa-engineer",
+  "version": "0.1.0",
+  "description": "QA engineering plugin. Test strategy, Vitest patterns, and CI/CD quality gates.",
+  "author": {
+    "name": "jadecli"
+  },
+  "repository": "https://github.com/jadecli/jadecli-plugins",
+  "license": "MIT",
+  "keywords": [
+    "testing",
+    "vitest",
+    "ci-cd",
+    "quality",
+    "qa"
+  ]
+}

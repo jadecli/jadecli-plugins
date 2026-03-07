@@ -1,0 +1,17 @@
+{
+  "name": "frontend-engineer",
+  "version": "0.1.0",
+  "description": "Frontend engineering plugin. Next.js on Vercel, React patterns, and Core Web Vitals optimization.",
+  "author": {
+    "name": "jadecli"
+  },
+  "repository": "https://github.com/jadecli/jadecli-plugins",
+  "license": "MIT",
+  "keywords": [
+    "nextjs",
+    "vercel",
+    "react",
+    "web-vitals",
+    "frontend"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "name": "middleware-engineer",
+  "version": "0.1.0",
+  "description": "Middleware engineering plugin. Integration patterns, message queues, and API gateway conventions.",
+  "author": {
+    "name": "jadecli"
+  },
+  "repository": "https://github.com/jadecli/jadecli-plugins",
+  "license": "MIT",
+  "keywords": [
+    "integration",
+    "message-queues",
+    "api-gateway",
+    "middleware",
+    "mcp"
+  ]
+}

@@ -17,6 +17,41 @@
       "name": "devtools",
       "source": "./devtools-plugin",
       "description": "macOS developer tooling installer and configurator for Claude Code workflows. Manages App Store apps, Homebrew tools, and system settings optimized for building monetizable web apps."
+    },
+    {
+      "name": "jadecli-base",
+      "source": "./jadecli-base",
+      "description": "Base plugin for all jadecli workers. Task tracking, session management, and org conventions."
+    },
+    {
+      "name": "jadecli-engineer-base",
+      "source": "./jadecli-engineer-base",
+      "description": "Engineering base plugin. Neon Postgres patterns, cron scheduling, table creation, and Vercel deploy conventions."
+    },
+    {
+      "name": "analytical-engineer",
+      "source": "./analytical-engineer",
+      "description": "Analytical engineering plugin. Reporting queries, dimensional modeling, and SCD patterns."
+    },
+    {
+      "name": "frontend-engineer",
+      "source": "./frontend-engineer",
+      "description": "Frontend engineering plugin. Next.js on Vercel, React patterns, and Core Web Vitals."
+    },
+    {
+      "name": "backend-engineer",
+      "source": "./backend-engineer",
+      "description": "Backend engineering plugin. API design, auth patterns, and middleware conventions."
+    },
+    {
+      "name": "middleware-engineer",
+      "source": "./middleware-engineer",
+      "description": "Middleware engineering plugin. Integration patterns, message queues, and API gateway."
+    },
+    {
+      "name": "qa-engineer",
+      "source": "./qa-engineer",
+      "description": "QA engineering plugin. Test strategy, Vitest patterns, and CI/CD quality gates."
     }
   ]
 }
