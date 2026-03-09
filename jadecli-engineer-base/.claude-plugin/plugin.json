@@ -1,0 +1,9 @@
+{
+  "name": "jadecli-engineer-base",
+  "version": "0.1.0",
+  "description": "Engineering base plugin. Neon Postgres patterns, cron scheduling, table creation, and Vercel deploy conventions.",
+  "author": {"name": "jadecli"},
+  "repository": "https://github.com/jadecli/jadecli-plugins",
+  "license": "MIT",
+  "keywords": ["neon", "postgres", "cron", "vercel", "engineering", "base"]
+}

@@ -1,0 +1,9 @@
+{
+  "name": "jadecli-base",
+  "version": "0.1.0",
+  "description": "Base plugin for all jadecli workers. Task tracking, session management, and org conventions.",
+  "author": {"name": "jadecli"},
+  "repository": "https://github.com/jadecli/jadecli-plugins",
+  "license": "MIT",
+  "keywords": ["task-tracking", "session-management", "org-conventions", "base"]
+}
