@@ -1,0 +1,23 @@
+{
+  "name": "staff-codegen",
+  "version": "1.0.0",
+  "description": "Multi-agent code generation team with 8 staff-level engineering roles: SDM orchestrator, MLE, QAE, FE, BE, DE, AE, and Data Scientist specializing in Bayesian statistics and A/B testing.",
+  "author": {
+    "name": "jadecli"
+  },
+  "repository": "https://github.com/jadecli/jadecli-plugins",
+  "license": "MIT",
+  "keywords": [
+    "codegen",
+    "multi-agent",
+    "staff-engineer",
+    "machine-learning",
+    "frontend",
+    "backend",
+    "data-engineering",
+    "analytics",
+    "data-science",
+    "bayesian-statistics",
+    "ab-testing"
+  ]
+}

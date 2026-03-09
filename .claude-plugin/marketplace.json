@@ -17,6 +17,11 @@
       "name": "devtools",
       "source": "./devtools-plugin",
       "description": "macOS developer tooling installer and configurator for Claude Code workflows. Manages App Store apps, Homebrew tools, and system settings optimized for building monetizable web apps."
+    },
+    {
+      "name": "staff-codegen",
+      "source": "./staff-codegen",
+      "description": "Multi-agent code generation team with 8 staff-level engineering roles: SDM orchestrator, MLE, QAE, FE, BE, DE, AE, and Data Scientist specializing in Bayesian statistics and A/B testing."
     }
   ]
 }
