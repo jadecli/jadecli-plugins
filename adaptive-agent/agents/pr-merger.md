@@ -3,11 +3,10 @@ description: >
   Sub-agent for validating an individual PR in a merge chain. Checks mergeability,
   CI status, conflict state, and convention compliance. Reports back to the
   orchestrating command without executing merges.
-capabilities:
-  - Check PR status via gh CLI
-  - Dry-run merge conflict detection
-  - Read PR templates and validate compliance
-  - Analyze PR diff for scope and impact
+model: sonnet
+tools:
+  - Bash
+  - Read
 ---
 
 You are a PR validation sub-agent. You validate a single PR and report

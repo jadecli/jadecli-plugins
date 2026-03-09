@@ -52,7 +52,7 @@ claude -w feature-auth          # Isolated git worktree session
 | Auto accept edits | `--permission-mode acceptEdits` | Trusted projects, faster iteration |
 | Plan | `--permission-mode plan` | Complex tasks — explore first, then execute |
 | Don't ask | `--permission-mode dontAsk` | **CLI-only** — fully autonomous local work |
-| Bypass | `--dangerously-skip-permissions` | Sandboxed containers/VMs only |
+| Bypass | `--permission-mode bypassPermissions` | Sandboxed containers/VMs only |
 
 Best practice: start complex tasks in Plan mode, switch to Auto accept edits
 once the approach is confirmed.
