@@ -1,0 +1,16 @@
+{
+  "description": "Track staff-codegen agent invocations for audit and debugging",
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Task",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo \"[staff-codegen] Agent task completed at $(date -u +%Y-%m-%dT%H:%M:%SZ)\" >&2"
+          }
+        ]
+      }
+    ]
+  }
+}
